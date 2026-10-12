@@ -53,8 +53,6 @@ jobs:
 
       - name: Deploy
         if: env.VERCEL_TOKEN != '' && env.VERCEL_ORG_ID != '' && env.VERCEL_PROJECT_ID != ''
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ env.VERCEL_TOKEN }}
-          vercel-org-id: ${{ env.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ env.VERCEL_PROJECT_ID }}
+        run: |
+          npx vercel@latest pull --yes --environment=production --token="${{ env.VERCEL_TOKEN }}"
+          npx vercel@latest deploy --prod --token="${{ env.VERCEL_TOKEN }}"
